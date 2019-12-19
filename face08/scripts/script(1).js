@@ -15,6 +15,12 @@
 const Diagnostics = require('Diagnostics');
 const Scene = require('Scene');
 
+const FaceTracking = require('FaceTracking');
+
+// Add the mouth openness signal to the watch view
+// Diagnostics.watch("Mouth Openness - ", FaceTracking.face(0).mouth.openness);
+
+
 // How to access scene objects (uncomment line below to activate)
 // const directionalLight = Scene.root.find('directionalLight0');
 
