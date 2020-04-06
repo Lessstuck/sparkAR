@@ -1,0 +1,11 @@
+
+ // version 85 sdk
+
+
+
+// Subscribe to tap gestures
+
+// TouchGestures.onTap().subscribe(function (gesture) {
+//     drumLoop.play();
+//     Diagnostics.log('tap gesture detected');
+// });
