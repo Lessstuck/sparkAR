@@ -4,11 +4,10 @@ const AudioObject = require("sparkar-audio-object");
 // const Audio = require("Audio"); // necessary?
 const TouchGestures = require("TouchGestures");
 const Patches = require('Patches');
-export const Diagnostics = require('Diagnostics');
-const EventHelpers = require("sparkar-event-helpers");
-
 const Time = require('Time')
 const CANNON = require('cannon');
+export const Diagnostics = require('Diagnostics');
+// const EventHelpers = require("sparkar-event-helpers");
 
 // Reference SphereObject from Scene
 Promise.all([
@@ -29,7 +28,7 @@ Scene.root.findFirst('SphereObject')
     shape: new CANNON.Sphere(radius),
   }
 
-  const sphereBody = new CANNON.Body(sphereProps);
+  const  sphereBody= new CANNON.Body(sphereProps);
   world.addBody(sphereBody);
   console.log('transform ", sphere.transform.y');
 
@@ -63,7 +62,7 @@ Scene.root.findFirst('SphereObject')
       sphere.transform.x = sphereBody.position.x;
       sphere.transform.y = sphereBody.position.y;
       sphere.transform.z = sphereBody.position.z;
-      console.log("sphere.transform.y = ", sphere.transform.y);
+      console.log("sphere.transform.y = " + sphere.transform.y);
     }
 
     lastTime = time
