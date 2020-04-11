@@ -57,30 +57,43 @@ Promise.all([
     });
     drumLoop.volume = 1.;
 
+    sphereBody.addEventListener("collide", function (event) {
+        drumLoop.play();
+    })
 
     Time.setInterval(function (time2) {
+
         // drumLoop.play();
-        freeFalling == 1;
+        // Time.clearInterval(idInterval);
+        // freeFalling == 1;
+        // sphereBody.position.x = 0;
+        // sphereBody.position.y = 10;
+        // sphereBody.position.z = 0;
+        // sphere.transform.x = sphereBody.position.x;
+        // sphere.transform.y = sphereBody.position.y;
+        // sphere.transform.z = sphereBody.position.z;
+
+
         Diagnostics.log('play 10 sec loop: ');
         // Create time interval loop for cannon 
-        Time.setInterval(function (time) {
+        var idInterval = Time.setInterval(function (time) {
             if (lastTime !== undefined) {
                 let dt = (time - lastTime) / 1000;
                 world.step(fixedTimeStep, dt, maxSubSteps)
                 sphere.transform.x = sphereBody.position.x;
                 sphere.transform.y = sphereBody.position.y;
                 sphere.transform.z = sphereBody.position.z;
-                const patchSend = Patches.outputs.getScalar('editorToScriptVar');
-                patchSend.then(function () {
-                    if (freeFalling == 1) {
-                        Diagnostics.log("freeFalling: " + freeFalling);
-                        // drumLoop.play();
-                        freeFalling = 0;
-                    }
-                });
+                // // const patchSend = Patches.outputs.getScalar('editorToScriptVar');
+                // patchSend.then(function () {
+                //     if (freeFalling == 1) {
+                        // Diagnostics.log("freeFalling: " + freeFalling);
+                    //     // drumLoop.play();
+                    //     freeFalling = 0;
+                    // }
+                // });
+
             };
             lastTime = time
         }, timeInterval);
-        // sphereBody.position = (0, 10, 0)
     }, fallTime);
 });        
