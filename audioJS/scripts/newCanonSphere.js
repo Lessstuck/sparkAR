@@ -3,7 +3,11 @@
 const Scene = require('Scene');
 const Time = require('Time')
 const CANNON = require('cannon');
+const Diagnostics = require('Diagnostics');
+const Patches = require('Patches');
+const AudioObject = require("sparkar-audio-object");
 
+const fallTime = 1000;
 // Reference SphereObject from Scene
 Promise.all([
     Scene.root.findFirst('SphereObject')
@@ -22,7 +26,6 @@ Promise.all([
         radius: radius,
         shape: new CANNON.Sphere(radius),
     }
-
     const sphereBody = new CANNON.Body(sphereProps);
     world.addBody(sphereBody);
 
@@ -33,12 +36,10 @@ Promise.all([
         shape: new CANNON.Plane(),
     }
     const groundBody = new CANNON.Body(groundProps);
-
     // Rotate the ground so it is flat (facing upwards)
     const angle = -Math.PI / 2;
     const xAxis = new CANNON.Vec3(1, 0, 0);
     groundBody.quaternion.setFromAxisAngle(xAxis, angle);
-
     world.addBody(groundBody);
 
     // Configure time step for Cannon
@@ -46,21 +47,40 @@ Promise.all([
     const maxSubSteps = 3;
     const timeInterval = 30;
     let lastTime;
+    let freeFalling = 1;
+    let lastFallTime;
+    let fallTime = 10000;
+    
+    const drumLoop = AudioObject.new({
+    speakerName: "drumLoop_speaker",
+    controllerName: "drumLoop_controller",
+    });
+    drumLoop.volume = 1.;
 
-    // Create time interval loop for cannon 
-    Time.setInterval(function (time) {
-        if (lastTime !== undefined) {
-            let dt = (time - lastTime) / 1000;
-            world.step(fixedTimeStep, dt, maxSubSteps)
 
-            sphere.transform.x = sphereBody.position.x;
-            sphere.transform.y = sphereBody.position.y;
-            sphere.transform.z = sphereBody.position.z;
-            var goo = sphereBody.position.y;
-            console.log("body" + goo);
-        }
-
-        lastTime = time
-    }, timeInterval);
-});
-
+    Time.setInterval(function (time2) {
+        // drumLoop.play();
+        freeFalling == 1;
+        Diagnostics.log('play 10 sec loop: ');
+        // Create time interval loop for cannon 
+        Time.setInterval(function (time) {
+            if (lastTime !== undefined) {
+                let dt = (time - lastTime) / 1000;
+                world.step(fixedTimeStep, dt, maxSubSteps)
+                sphere.transform.x = sphereBody.position.x;
+                sphere.transform.y = sphereBody.position.y;
+                sphere.transform.z = sphereBody.position.z;
+                const patchSend = Patches.outputs.getScalar('editorToScriptVar');
+                patchSend.then(function () {
+                    if (freeFalling == 1) {
+                        Diagnostics.log("freeFalling: " + freeFalling);
+                        // drumLoop.play();
+                        freeFalling = 0;
+                    }
+                });
+            };
+            lastTime = time
+        }, timeInterval);
+        // sphereBody.position = (0, 10, 0)
+    }, fallTime);
+});        

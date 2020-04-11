@@ -21,7 +21,7 @@ Scene.root.findFirst('SphereObject')
 
   // Create sphere body and setting its shape and properties
   const radius = 1;
-  const sphereProps = {
+  const sphereProps = { 
     mass: 5,
     position: new CANNON.Vec3(0, 10, 0),
     radius: radius,
@@ -54,45 +54,42 @@ Scene.root.findFirst('SphereObject')
   let lastTime;
 
   // Create time interval loop for cannon 
-  Time.setInterval(function (time) {
-    if (lastTime !== undefined) {
-      let dt = (time - lastTime) / 1000;
-      world.step(fixedTimeStep, dt, maxSubSteps)
+  // Time.setInterval(function (time) {
+  //   if (lastTime !== undefined) {
+  //     let dt = (time - lastTime) / 1000;
+  //     world.step(fixedTimeStep, dt, maxSubSteps)
 
-      sphere.transform.x = sphereBody.position.x;
-      sphere.transform.y = sphereBody.position.y;
-      sphere.transform.z = sphereBody.position.z;
-      console.log("sphere.transform.y = " + sphere.transform.y);
-    }
+  //     sphere.transform.x = sphereBody.position.x;
+  //     sphere.transform.y = sphereBody.position.y;
+  //     sphere.transform.z = sphereBody.position.z;
+  //   }
 
-    lastTime = time
-  }, timeInterval);
+  //   lastTime = time
+  // }, timeInterval);
 })
-.catch(error => console.log(`Error in promises ${error}`));
 
 
 
+// const drumLoop = AudioObject.new({
+//   speakerName: "drumLoop_speaker",
+//   controllerName: "drumLoop_controller",
+// });
+// drumLoop.volume = 1.;
 
-const drumLoop = AudioObject.new({
-  speakerName: "drumLoop_speaker",
-  controllerName: "drumLoop_controller",
-});
-drumLoop.volume = 1.;
+// // const p = Patches.outputs.BoolSignal.monitor.subscribe('editorToScriptVar');
+// const p = Patches.outputs.getBool;
+//  // () => {
+//   drumLoop.play();
+//   Diagnostics.log('playDrumLoop: ' + p);
+// // }
 
-// const p = Patches.outputs.BoolSignal.monitor.subscribe('editorToScriptVar');
-const p = Patches.outputs.getBool;
- // () => {
-  drumLoop.play();
-  Diagnostics.log('playDrumLoop: ' + p);
-// }
-
- // version 85 sdk
-
+//  // version 85 sdk
 
 
-// Subscribe to tap gestures
 
-TouchGestures.onTap().subscribe(function (gesture) {
-  drumLoop.play();
-  // Diagnostics.log('tap gesture detected');
-});
+// // Subscribe to tap gestures
+
+// TouchGestures.onTap().subscribe(function (gesture) {
+//   drumLoop.play();
+//   // Diagnostics.log('tap gesture detected');
+// });
