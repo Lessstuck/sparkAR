@@ -55,9 +55,9 @@ Scene.root.findFirst('SphereObject')
     controllerName: "drumLoop_controller",
     });
     drumLoop.volume = 1.;
-    // drumLoop.play()
 
-    sphereBody.addEventListener("collide", function (event) {
+
+    sphereBody.addEventListener("collide", function () {
         drumLoop.play();
     })
 
