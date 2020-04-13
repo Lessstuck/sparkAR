@@ -25,7 +25,7 @@ Scene.root.findFirst('SphereObject')
     const radius = 1;
     const sphereProps = {
         mass: 5,
-        position: new CANNON.Vec3(0, 1, 0),
+        position: new CANNON.Vec3(0, 10, 0),
         radius: radius,
         shape: new CANNON.Sphere(radius),
     }
@@ -67,7 +67,7 @@ Scene.root.findFirst('SphereObject')
 
     TouchGestures.onTap().subscribe(function (event) {
         sphereBody.position.x = 0;
-        sphereBody.position.y = 1;
+        sphereBody.position.y = 10;
         sphereBody.position.z = 0;
     });
 
