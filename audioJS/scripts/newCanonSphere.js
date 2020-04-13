@@ -66,6 +66,7 @@ Scene.root.findFirst('SphereObject')
     });
 
     TouchGestures.onTap().subscribe(function (event) {
+<<<<<<< HEAD
         sphereBody.position.x = 0;
         sphereBody.position.y = 10;
         sphereBody.position.z = 0;
@@ -83,6 +84,23 @@ Scene.root.findFirst('SphereObject')
         lastTime = time
     }, timeInterval);
 
+=======
+        Diagnostics.log('tap');
+    });
+
+    Time.setInterval(function (time2) {
+        var idInterval = Time.setInterval(function (time) {
+            if (lastTime !== undefined) {
+                let dt = (time - lastTime) / 1000;
+                world.step(fixedTimeStep, dt, maxSubSteps)
+                sphere.transform.x = sphereBody.position.x;
+                sphere.transform.y = sphereBody.position.y;
+                sphere.transform.z = sphereBody.position.z;
+            };
+            lastTime = time
+        }, timeInterval);
+    }, fallTime);
+>>>>>>> 66ff94ed23a4814e97464eb7ba4718f3a946cdf8
 });        
 
 
