@@ -4,6 +4,7 @@ const CANNON = require('cannon');
 const Diagnostics = require('Diagnostics');
 const Patches = require('Patches');
 const AudioObject = require("sparkar-audio-object");
+const Touch = require('TouchGestures');
 
 const fallTime = 1000;
 // Reference SphereObject from Scene
@@ -60,6 +61,10 @@ Scene.root.findFirst('SphereObject')
     sphereBody.addEventListener("collide", function () {
         drumLoop.play();
     })
+
+    TouchGestures.onTap().subscribe(function () {
+        Diagnostics.log('tap'):
+    });
 
     Time.setInterval(function (time2) {
         var idInterval = Time.setInterval(function (time) {
