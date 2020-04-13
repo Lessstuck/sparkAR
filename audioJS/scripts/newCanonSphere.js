@@ -4,8 +4,12 @@ const CANNON = require('cannon');
 const Diagnostics = require('Diagnostics');
 const Patches = require('Patches');
 const AudioObject = require("sparkar-audio-object");
+const TouchGestures = require('TouchGestures');
 
 const fallTime = 1000;
+
+
+
 // Reference SphereObject from Scene
 Promise.all([
 Scene.root.findFirst('SphereObject')
@@ -59,18 +63,27 @@ Scene.root.findFirst('SphereObject')
 
     sphereBody.addEventListener("collide", function (event) {
         drumLoop.play();
-    })
+    });
 
-    Time.setInterval(function (time2) {
-        var idInterval = Time.setInterval(function (time) {
-            if (lastTime !== undefined) {
-                let dt = (time - lastTime) / 1000;
-                world.step(fixedTimeStep, dt, maxSubSteps)
-                sphere.transform.x = sphereBody.position.x;
-                sphere.transform.y = sphereBody.position.y;
-                sphere.transform.z = sphereBody.position.z;
-            };
-            lastTime = time
-        }, timeInterval);
-    }, fallTime);
+    TouchGestures.onTap().subscribe(function (event) {
+        sphereBody.position.x = 0;
+        sphereBody.position.y = 10;
+        sphereBody.position.z = 0;
+    });
+
+
+    var idInterval = Time.setInterval(function (time) {
+        if (lastTime !== undefined) {
+            let dt = (time - lastTime) / 1000;
+            world.step(fixedTimeStep, dt, maxSubSteps)
+            sphere.transform.x = sphereBody.position.x;
+            sphere.transform.y = sphereBody.position.y;
+            sphere.transform.z = sphereBody.position.z;
+        };
+        lastTime = time
+    }, timeInterval);
+
 });        
+
+
+

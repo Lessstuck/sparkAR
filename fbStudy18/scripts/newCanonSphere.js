@@ -4,8 +4,12 @@ const CANNON = require('cannon');
 const Diagnostics = require('Diagnostics');
 const Patches = require('Patches');
 const AudioObject = require("sparkar-audio-object");
+const TouchGestures = require('TouchGestures');
 
 const fallTime = 1000;
+
+
+
 // Reference SphereObject from Scene
 Promise.all([
 Scene.root.findFirst('SphereObject')
@@ -21,7 +25,7 @@ Scene.root.findFirst('SphereObject')
     const radius = 1;
     const sphereProps = {
         mass: 5,
-        position: new CANNON.Vec3(0, 10, 0),
+        position: new CANNON.Vec3(0, 1, 0),
         radius: radius,
         shape: new CANNON.Sphere(radius),
     }
@@ -55,22 +59,31 @@ Scene.root.findFirst('SphereObject')
     controllerName: "drumLoop_controller",
     });
     drumLoop.volume = 1.;
+    // drumLoop.play()
 
-
-    sphereBody.addEventListener("collide", function () {
+    sphereBody.addEventListener("collide", function (event) {
         drumLoop.play();
-    })
+    });
 
-    Time.setInterval(function (time2) {
-        var idInterval = Time.setInterval(function (time) {
-            if (lastTime !== undefined) {
-                let dt = (time - lastTime) / 1000;
-                world.step(fixedTimeStep, dt, maxSubSteps)
-                sphere.transform.x = sphereBody.position.x;
-                sphere.transform.y = sphereBody.position.y;
-                sphere.transform.z = sphereBody.position.z;
-            };
-            lastTime = time
-        }, timeInterval);
-    }, fallTime);
+    TouchGestures.onTap().subscribe(function (event) {
+        sphereBody.position.x = 0;
+        sphereBody.position.y = 1;
+        sphereBody.position.z = 0;
+    });
+
+
+    var idInterval = Time.setInterval(function (time) {
+        if (lastTime !== undefined) {
+            let dt = (time - lastTime) / 1000;
+            world.step(fixedTimeStep, dt, maxSubSteps)
+            sphere.transform.x = sphereBody.position.x;
+            sphere.transform.y = sphereBody.position.y;
+            sphere.transform.z = sphereBody.position.z;
+        };
+        lastTime = time
+    }, timeInterval);
+
 });        
+
+
+
