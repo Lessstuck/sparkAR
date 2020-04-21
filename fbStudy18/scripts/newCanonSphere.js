@@ -54,24 +54,26 @@ Scene.root.findFirst('SphereObject')
     let lastFallTime;
     let fallTime = 3000;
     
+    // audio setup
     const drumLoop = AudioObject.new({
     speakerName: "drumLoop_speaker",
     controllerName: "drumLoop_controller",
     });
     drumLoop.volume = 1.;
-    // drumLoop.play()
 
+    // collision listener
     sphereBody.addEventListener("collide", function (event) {
         drumLoop.play();
     });
 
+    // retrigger drop
     TouchGestures.onTap().subscribe(function (event) {
         sphereBody.position.x = 0;
         sphereBody.position.y = 10;
         sphereBody.position.z = 0;
     });
 
-
+    // update
     var idInterval = Time.setInterval(function (time) {
         if (lastTime !== undefined) {
             let dt = (time - lastTime) / 1000;
