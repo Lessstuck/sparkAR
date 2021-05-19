@@ -1,38 +1,27 @@
-/**
- * (c) Facebook, Inc. and its affiliates. Confidential and proprietary.
- */
-
-//==============================================================================
-// Welcome to scripting in Spark AR Studio! Helpful links:
-//
-// Scripting Basics - https://fb.me/spark-scripting-basics
-// Reactive Programming - https://fb.me/spark-reactive-programming
-// Scripting Object Reference - https://fb.me/spark-scripting-reference
-// Changelogs - https://fb.me/spark-changelog
-//
-// For projects created with v87 onwards, JavaScript is always executed in strict mode.
-//==============================================================================
-
-// How to load in modules
 const Scene = require('Scene');
-
 const Patches = require('Patches');
+const Diagnostics = require('Diagnostics');
+const Time = require('Time');
 
-// Use export keyword to make a symbol available in scripting debug console
-export const Diagnostics = require('Diagnostics');
+(async function () { 
 
+  const toScriptNumber = await Patches.outputs.getScalar('toScriptNumber');
+  const toScriptBoolean = await Patches.outputs.getBoolean('toScriptBoolean');
+  const toScriptPulse = await Patches.outputs.getPulse('toScriptPulse')
 
-(async function () {  // Enables async/await in JS [part 1]
-  let fromScriptBoolean = true;
-  let toScriptNumber = 99;
-  let toScriptTrigger;
-  let fromScriptPitches = 7;
+  let fromScriptPulse;
+  let fromScriptBoolean;
+  let fromScriptPitches;
   
-  await Patches.inputs.setBoolean('fromScriptBoolean', fromScriptBoolean);
-  await Patches.inputs.setScalar('fromScriptPitches', fromScriptPitches);
-  // await Patches.outputs.getScalar('toScriptNumber', toScriptNumber);
-  fromScriptPitches = await Patches.outputs.getScalar('toScriptNumber', toScriptNumber);
-  
+  await Patches.inputs.setScalar('fromScriptPitches', toScriptNumber);
+  await Patches.inputs.setBoolean('fromScriptBoolean', toScriptBoolean);
+  await Patches.inputs.setPulse('fromScriptPulse', toScriptPulse);
+ 
+
+  // fromScriptPitches =  await Patches.outputs.getScalar('toScriptNumber');
+
+  // Diagnostics.watch('toScriptNumber =>', toScriptNumber);
+  // Diagnostics.log(fromScriptPitches);
 
   // To access scene objects
   // const [directionalLight] = await Promise.all([
@@ -44,5 +33,4 @@ export const Diagnostics = require('Diagnostics');
 
   // To log messages to the console
   // Diagnostics.log('Console message logged from the script.');
-
-})(); // Enables async/await in JS [part 2]
+})(); 

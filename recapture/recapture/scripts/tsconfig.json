@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": "/var/folders/lw/mp4zjh216_b02t2sqrhp03dr0000gr/T/dcd6-1811-d305-18ca/1178bcd45c1f0c5455e93e560d7cfdd973d",
+    "baseUrl": "/var/folders/lw/mp4zjh216_b02t2sqrhp03dr0000gr/T/25d8-4795-2553-1f4a/1178bcd45c1f0c5455e93e560d7cfdd973d",
     "checkJs": true,
     "esModuleInterop": true,
     "lib": [
       "ES2019"
     ],
-    "outDir": "/var/folders/lw/mp4zjh216_b02t2sqrhp03dr0000gr/T/dcd6-1811-d305-18ca/1178bcd45c1f0c5455e93e560d7cfdd973d/out-dir",
+    "outDir": "/var/folders/lw/mp4zjh216_b02t2sqrhp03dr0000gr/T/25d8-4795-2553-1f4a/1178bcd45c1f0c5455e93e560d7cfdd973d/out-dir",
     "paths": {
       "*": [
         "skylight-typedefs/*",
@@ -15,7 +15,7 @@
       ]
     },
     "typeRoots": [
-      "/var/folders/lw/mp4zjh216_b02t2sqrhp03dr0000gr/T/dcd6-1811-d305-18ca/1178bcd45c1f0c5455e93e560d7cfdd973d/skylight-node_modules/@types"
+      "/var/folders/lw/mp4zjh216_b02t2sqrhp03dr0000gr/T/25d8-4795-2553-1f4a/1178bcd45c1f0c5455e93e560d7cfdd973d/skylight-node_modules/@types"
     ],
     "types": [
       "node"
