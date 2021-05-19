@@ -1,7 +1,6 @@
 const Scene = require('Scene');
 const Time = require('Time')
 const CANNON = require('cannon');
-const Diagnostics = require('Diagnostics');
 const Patches = require('Patches');
 const AudioObject = require("sparkar-audio-object");
 const TouchGestures = require('TouchGestures');

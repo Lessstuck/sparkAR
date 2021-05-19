@@ -1,1 +1,28 @@
-{"compilerOptions":{"allowJs":true,"baseUrl":"/private/var/folders/6c/z8fn7qhn5476w_8xk77pbv440000gn/T/13419c5fb69af4457438bb3923298ecdf2601/skylight-typedefs","checkJs":true,"lib":["ES2015"],"outDir":"/private/var/folders/6c/z8fn7qhn5476w_8xk77pbv440000gn/T/13419c5fb69af4457438bb3923298ecdf2601/skylight-typedefs/out-dir"},"include":["*.js"]}
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "/var/folders/lw/mp4zjh216_b02t2sqrhp03dr0000gr/T/cd24-21b3-7a03-96c5/13419c5fb69af4457438bb3923298ecdf2601",
+    "checkJs": true,
+    "esModuleInterop": true,
+    "lib": [
+      "ES2019"
+    ],
+    "outDir": "/var/folders/lw/mp4zjh216_b02t2sqrhp03dr0000gr/T/cd24-21b3-7a03-96c5/13419c5fb69af4457438bb3923298ecdf2601/out-dir",
+    "paths": {
+      "*": [
+        "skylight-typedefs/*",
+        "skylight-node_modules/*"
+      ]
+    },
+    "typeRoots": [
+      "/var/folders/lw/mp4zjh216_b02t2sqrhp03dr0000gr/T/cd24-21b3-7a03-96c5/13419c5fb69af4457438bb3923298ecdf2601/skylight-node_modules/@types"
+    ],
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "./**/*.js",
+    "./**/*.ts"
+  ]
+}

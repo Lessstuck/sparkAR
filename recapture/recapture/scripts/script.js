@@ -16,16 +16,23 @@
 // How to load in modules
 const Scene = require('Scene');
 
+const Patches = require('Patches');
+
 // Use export keyword to make a symbol available in scripting debug console
 export const Diagnostics = require('Diagnostics');
 
-// To use variables and functions across files, use export/import keyword
-// export const animationDuration = 10;
-
-// Use import keyword to import a symbol from another file
-// import { animationDuration } from './script.js'
 
 (async function () {  // Enables async/await in JS [part 1]
+  let fromScriptBoolean = true;
+  let toScriptNumber = 99;
+  let toScriptTrigger;
+  let fromScriptPitches = 7;
+  
+  await Patches.inputs.setBoolean('fromScriptBoolean', fromScriptBoolean);
+  await Patches.inputs.setScalar('fromScriptPitches', fromScriptPitches);
+  // await Patches.outputs.getScalar('toScriptNumber', toScriptNumber);
+  fromScriptPitches = await Patches.outputs.getScalar('toScriptNumber', toScriptNumber);
+  
 
   // To access scene objects
   // const [directionalLight] = await Promise.all([
