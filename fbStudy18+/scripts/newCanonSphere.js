@@ -82,7 +82,9 @@ Scene.root.findFirst('SphereObject')
         lastTime = time
     }, timeInterval);
 
-});        
+})
+.catch (err => console.log("Error: ", err))
+     
 
 
 
