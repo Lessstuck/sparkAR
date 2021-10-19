@@ -4,61 +4,67 @@ const CANNON = require('cannon');
 const Patches = require('Patches');
 const AudioObject = require("sparkar-audio-object");
 const TouchGestures = require('TouchGestures');
+const Diagnostics = require('Diagnostics');
+
+Diagnostics.log("run");
 
 const fallTime = 1000;
 
-
-
-// Reference SphereObject from Scene
-Promise.all([
-Scene.root.findFirst('SphereObject')
-]).then(function (objects) {
-    const sphere = objects[0];
-
+(async function () {
+    // Reference Sphere object from Scene
+    const sphere = await Scene.root.findFirst('SphereObject');
+    Diagnostics.log("post-sphere");
     // Create cannon world and setting gravity
     const world = new CANNON.World();
     world.gravity.set(0, -9.82, 0);
     
 
     // Create sphere body and setting its shape and properties
-    const radius = 1;
+    var mat1 = new CANNON.Material();
+    let radius = 1;
     const sphereProps = {
         mass: 5,
         position: new CANNON.Vec3(0, 10, 0),
         radius: radius,
         shape: new CANNON.Sphere(radius),
+        material: mat1,
+        linearDamping: .01
     }
     const sphereBody = new CANNON.Body(sphereProps);
     world.addBody(sphereBody);
 
     // Create ground body and settings its shape and properties
+    var groundMaterial = new CANNON.Material();
     const groundProps = {
         mass: 0,
         position: new CANNON.Vec3(0, -sphereProps.radius, 0),
         shape: new CANNON.Plane(),
+        material: groundMaterial
     }
     const groundBody = new CANNON.Body(groundProps);
+
+
     // Rotate the ground so it is flat (facing upwards)
     const angle = -Math.PI / 2;
     const xAxis = new CANNON.Vec3(1, 0, 0);
     groundBody.quaternion.setFromAxisAngle(xAxis, angle);
+    var mat1_ground = new CANNON.ContactMaterial(groundMaterial, mat1, { friction: 0.0, restitution: 0.0 });
     world.addBody(groundBody);
+
+    world.addContactMaterial(mat1_ground);
 
     // Configure time step for Cannon
     const fixedTimeStep = 1.0 / 60.0;
     const maxSubSteps = 3;
     const timeInterval = 30;
     let lastTime;
-    let freeFalling = 1;
-    let lastFallTime;
-    let fallTime = 3000;
     
     const drumLoop = AudioObject.new({
     speakerName: "drumLoop_speaker",
     controllerName: "drumLoop_controller",
+    volume: 1
     });
-    drumLoop.volume = 1.;
-    // drumLoop.play()
+
 
     sphereBody.addEventListener("collide", function (event) {
         drumLoop.play();
@@ -82,9 +88,9 @@ Scene.root.findFirst('SphereObject')
         lastTime = time
     }, timeInterval);
 
-})
-.catch (err => console.log("Error: ", err))
-     
+})();
+
+
 
 
 
