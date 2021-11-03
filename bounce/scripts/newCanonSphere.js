@@ -7,7 +7,6 @@ const TouchGestures = require('TouchGestures');
 const Diagnostics = require('Diagnostics');
 
 const fallTime = 1000;
-var planeTrackerHeight;
 
     // const drumLoop = AudioObject.new({
     //     speakerName: "drumLoop_speaker",
@@ -15,8 +14,6 @@ var planeTrackerHeight;
     //     volume: 1
     //     });
 
-const world = new CANNON.World();
-world.gravity.set(0, -9.82, 0);
 
 (async function () {
 
@@ -25,14 +22,15 @@ world.gravity.set(0, -9.82, 0);
     const sphere = await Scene.root.findFirst('SphereObject');
 
     // Create cannon world and setting gravity
-
+    const world = new CANNON.World();
+    world.gravity.set(0, -9.82, 0);
 
     // Create sphere body and setting its shape and properties
     var mat1 = new CANNON.Material();
     let radius = 1;
     const sphereProps = {
         mass: 5,
-        // position: new CANNON.Vec3(0, 0, 0),
+        position: new CANNON.Vec3(0, 0, 0),
         radius: radius,
         shape: new CANNON.Sphere(radius),
         material: mat1,
@@ -46,7 +44,7 @@ world.gravity.set(0, -9.82, 0);
     const groundProps = {
         mass: 0,
         // position: new CANNON.Vec3(0, -sphereProps.radius, 0),
-        position: new CANNON.Vec3(0, -4, 0),
+        position: new CANNON.Vec3(0, 0, 0),
         shape: new CANNON.Plane(),
         material: groundMaterial
     }
@@ -66,13 +64,12 @@ world.gravity.set(0, -9.82, 0);
     const maxSubSteps = 3;
     const timeInterval = 30;
     let lastTime;
-    Diagnostics.log(editorToScriptVar);
+    Diagnostics.log("execute");
 
 
     var worldPoint = new CANNON.Vec3(0,0,0);
     var ddt = 1/60;
-    // var impulse = new CANNON.Vec3(, 500 * ddt ,0);
-    var impulse = new CANNON.Vec3(0, 10 ,0);
+    var impulse = new CANNON.Vec3(0, 1 ,0);
 
     Diagnostics.log("preAdd");
     sphereBody.addEventListener("collide", function (event) {
@@ -83,7 +80,6 @@ world.gravity.set(0, -9.82, 0);
     Diagnostics.log("postAdd");
 
     TouchGestures.onTap().subscribe(function (event) {
-
         sphereBody.position.x = 0;
         sphereBody.position.y = 0;
         sphereBody.position.z = 0;
