@@ -8,18 +8,7 @@ const Diagnostics = require('Diagnostics');
 
 const fallTime = 1000;
 
-    // const drumLoop = AudioObject.new({
-    //     speakerName: "drumLoop_speaker",
-    //     controllerName: "drumLoop_controller",
-    //     volume: 1
-    //     });
 
-
-(async function () {
-
-
-    // Reference Sphere object from Scene
-    const sphere = await Scene.root.findFirst('SphereObject');
 
     // Create cannon world and setting gravity
     const world = new CANNON.World();
@@ -37,6 +26,7 @@ const fallTime = 1000;
         // linearDamping: .01
     }
     const sphereBody = new CANNON.Body(sphereProps);
+    sphereBody.DYNAMIC = 1;
     world.addBody(sphereBody);
 
     // Create ground body and settings its shape and properties
@@ -71,10 +61,23 @@ const fallTime = 1000;
     var ddt = 1/60;
     var impulse = new CANNON.Vec3(0, 0 ,0);
 
+
+(async function () {
+
+    // const drumLoop = AudioObject.new({
+    //     speakerName: "drumLoop_speaker",
+    //     controllerName: "drumLoop_controller",
+    //     volume: 1
+    // });
+
+    // Reference Sphere object from Scene
+    const sphere = await Scene.root.findFirst('SphereObject');
+
+
+
     Diagnostics.log("preAdd");
     sphereBody.addEventListener("collide", function (event) {
-        Diagnostics.log(sphereBody);
-        sphereBody.applyImpulse(impulse,worldPoint);
+        sphereBody.applyImpulse(impulse, worldPoint);
         // drumLoop.play();
     });
     Diagnostics.log("postAdd");
