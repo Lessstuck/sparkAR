@@ -26,27 +26,27 @@ const fallTime = 1000;
     world.gravity.set(0, -9.82, 0);
 
     // Create sphere body and setting its shape and properties
-    var mat1 = new CANNON.Material();
+    // var mat1 = new CANNON.Material();
     let radius = 1;
     const sphereProps = {
         mass: 5,
         position: new CANNON.Vec3(0, 0, 0),
         radius: radius,
         shape: new CANNON.Sphere(radius),
-        material: mat1,
-        linearDamping: .01
+        // material: mat1,
+        // linearDamping: .01
     }
     const sphereBody = new CANNON.Body(sphereProps);
     world.addBody(sphereBody);
 
     // Create ground body and settings its shape and properties
-    var groundMaterial = new CANNON.Material();
+    // var groundMaterial = new CANNON.Material();
     const groundProps = {
         mass: 0,
         // position: new CANNON.Vec3(0, -sphereProps.radius, 0),
         position: new CANNON.Vec3(0, 0, 0),
         shape: new CANNON.Plane(),
-        material: groundMaterial
+        // material: groundMaterial
     }
     const groundBody = new CANNON.Body(groundProps);
 
@@ -54,10 +54,10 @@ const fallTime = 1000;
     const angle = -Math.PI / 2;
     const xAxis = new CANNON.Vec3(1, 0, 0);
     groundBody.quaternion.setFromAxisAngle(xAxis, angle);
-    var mat1_ground = new CANNON.ContactMaterial(groundMaterial, mat1, { friction: 0.0, restitution: 0.0 });
+    // var mat1_ground = new CANNON.ContactMaterial(groundMaterial, mat1, { friction: 0.0, restitution: 0.0 });
     world.addBody(groundBody);
 
-    world.addContactMaterial(mat1_ground);
+    // world.addContactMaterial(mat1_ground);
 
     // Configure time step for Cannon
     const fixedTimeStep = 1.0 / 60.0;
@@ -69,11 +69,11 @@ const fallTime = 1000;
 
     var worldPoint = new CANNON.Vec3(0,0,0);
     var ddt = 1/60;
-    var impulse = new CANNON.Vec3(0, 1 ,0);
+    var impulse = new CANNON.Vec3(0, 0 ,0);
 
     Diagnostics.log("preAdd");
     sphereBody.addEventListener("collide", function (event) {
-        Diagnostics.log("collide");
+        Diagnostics.log(sphereBody);
         sphereBody.applyImpulse(impulse,worldPoint);
         // drumLoop.play();
     });
@@ -91,7 +91,7 @@ const fallTime = 1000;
             let dt = (time - lastTime) / 1000;
             world.step(fixedTimeStep, dt, maxSubSteps)
             sphere.transform.x = sphereBody.position.x;
-            sphere.transform.y = sphereBody.position.y;
+            sphere.transform.y = sphereBody.position.y - 1;
             sphere.transform.z = sphereBody.position.z;
         };
         lastTime = time
